@@ -1,7 +1,7 @@
 const flatListData = [
     {
         "key": "598a678278fee204ee51cd2c",
-        "name": "Cream Tea",     
+        "name": "Cream Tea1",     
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/03/Devonshire_tea.jpg",          
         "foodDescription": "This is a cup of cream tea"
     },
