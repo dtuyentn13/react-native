@@ -17,6 +17,7 @@ import Touchable from './components/Touchable'
 import VerticalScrollView from './components/VerticalScrollView'
 import HorizontalScrollView from './components/HorizontalScrollView'
 import ViewPager from './components/ViewPager'
+import BasicFlatList from './components/BasicFlatList'
 
 // AppRegistry.registerComponent(appName, () => MultipleGreeting);
 // AppRegistry.registerComponent(appName, () => Robot);
@@ -28,7 +29,8 @@ import ViewPager from './components/ViewPager'
 // AppRegistry.registerComponent(appName, () => Touchable);
 // AppRegistry.registerComponent(appName, () => VerticalScrollView);
 // AppRegistry.registerComponent(appName, () => HorizontalScrollView);
-AppRegistry.registerComponent(appName, () => ViewPager);
+// AppRegistry.registerComponent(appName, () => ViewPager);
+AppRegistry.registerComponent(appName, () => BasicFlatList);
 
 
 
