@@ -40,7 +40,8 @@ class FlatListItem extends Component {
                             'Are you sure want to delete',
                             [
                                 { text: 'No', onPress: () => console.log('Cancel Prossed'), style: 'cancel' },
-                                { text: 'Yes', onPress: () => {
+                                {
+                                    text: 'Yes', onPress: () => {
                                         flatListData.splice(this.props.index, 1);
                                         //Refresh Flatlist
                                         this.props.parentFlatList.refreshFlatList(deletingRow);
@@ -118,6 +119,9 @@ export default class BasicFlatList extends Component {
             };
         });
     }
+    _onPressAdd () {
+        alert('You Add Item');
+    }
     render() {
         return (
             <View style={{
@@ -125,11 +129,24 @@ export default class BasicFlatList extends Component {
                 marginTop: Platform.OS === 'ios' ? 34 : 0
             }}
             >
-            <View style={{
-                backgroundColor: 'tomato',
-                height: 64
-            }}>
-            </View>
+                <View style={{
+                    backgroundColor: 'tomato',
+                    height: 64,
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                    alignItems: 'center'
+                }}>
+                    <TouchableHighlight
+                        style={{ marginRight: 10 }}
+                        underlayColor='tomato'
+                        onPress={this._onPressAdd}
+                    >
+                        <Image
+                            style={{ width: 35, height: 35 }}
+                            source={require('../iconns/icons-add.png')}
+                        />
+                    </TouchableHighlight>
+                </View>
                 <FlatList
                     data={flatListData}
                     renderItem={({ item, index }) => {
