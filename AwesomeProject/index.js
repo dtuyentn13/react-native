@@ -19,6 +19,9 @@ import HorizontalScrollView from './components/HorizontalScrollView'
 import ViewPager from './components/ViewPager'
 import BasicFlatList from './components/BasicFlatList'
 import HorizontalFlatList from './components/HorizontalFlatList'
+import BasicSectionList from './components/BasicSectionList'
+
+
 // AppRegistry.registerComponent(appName, () => MultipleGreeting);
 // AppRegistry.registerComponent(appName, () => Robot);
 // AppRegistry.registerComponent(appName, () => TextBlink);
@@ -31,7 +34,8 @@ import HorizontalFlatList from './components/HorizontalFlatList'
 // AppRegistry.registerComponent(appName, () => HorizontalScrollView);
 // AppRegistry.registerComponent(appName, () => ViewPager);
 // AppRegistry.registerComponent(appName, () => BasicFlatList);
-AppRegistry.registerComponent(appName, () => HorizontalFlatList);
+// AppRegistry.registerComponent(appName, () => HorizontalFlatList);
+AppRegistry.registerComponent(appName, () => BasicSectionList);
 
 
 
