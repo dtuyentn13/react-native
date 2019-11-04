@@ -16,8 +16,10 @@
     "react": "16.9.0",
     "react-native": "0.61.2",
     "react-native-button": "^2.4.0",
+    "react-native-ionicons": "^4.6.3",
     "react-native-modalbox": "^2.0.0",
-    "react-native-swipeout": "^2.3.6"
+    "react-native-swipeout": "^2.3.6",
+    "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {
     "@babel/core": "7.6.4",

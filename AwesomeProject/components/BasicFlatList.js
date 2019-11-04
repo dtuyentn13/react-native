@@ -146,6 +146,8 @@ export default class BasicFlatList extends Component {
         return (
             <View style={{
                 flex: 1,
+                flexDirection: 'column',
+                height: 150,
                 marginTop: Platform.OS === 'ios' ? 34 : 0
             }}
             >
@@ -168,6 +170,7 @@ export default class BasicFlatList extends Component {
                     </TouchableHighlight>
                 </View>
                 <FlatList
+                    horizontal={true}
                     ref={"flatList"}
                     data={flatListData}
                     renderItem={({ item, index }) => {
