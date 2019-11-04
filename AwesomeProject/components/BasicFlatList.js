@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import flatListData from '../Data/flatListData';
 import SwipeOut from 'react-native-swipeout';
+import AddModal from './AddModal'
 
 class FlatListItem extends Component {
     constructor(props) {
@@ -111,16 +112,19 @@ export default class BasicFlatList extends Component {
         this.state = ({
             deletedRowKey: false,
         });
+        this._onPressAdd = this._onPressAdd.bind(this);
     }
-    refreshFlatList = (deletedKey) => {
+    refreshFlatList = (activeKey) => {
         this.setState((prevState) => {
             return {
                 deletedRowKey: true
             };
         });
+        this.refs.flatList.scrollToEnd();
     }
-    _onPressAdd () {
-        alert('You Add Item');
+    _onPressAdd() {
+        // alert('You Add Item');
+        this.refs.addModal.showAddModal();
     }
     render() {
         return (
@@ -148,6 +152,7 @@ export default class BasicFlatList extends Component {
                     </TouchableHighlight>
                 </View>
                 <FlatList
+                    ref={"flatList"}
                     data={flatListData}
                     renderItem={({ item, index }) => {
                         // console.log(`Item = ${JSON.stringify(item)}, index = ${index}`)
@@ -158,6 +163,8 @@ export default class BasicFlatList extends Component {
                     }}
                 >
                 </FlatList>
+                <AddModal ref={'addModal'} parentFlatList={this}>
+                </AddModal>
             </View>
         )
     }
