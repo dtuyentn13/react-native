@@ -14,6 +14,7 @@ import SwipeOut from 'react-native-swipeout';
 import AddModal from './AddModal';
 import EditModal from './EditModal';
 
+import { insertNewFoodToServer} from '../networking/Server'
 import { getFoodsFromServer } from '../networking/Server';
 
 class FlatListItem extends Component {
@@ -100,7 +101,7 @@ class FlatListItem extends Component {
                         }}>
                             <Text style={styles.textStyle}>{this.props.item.id}</Text>
                             <Text style={styles.textStyle}>{this.props.item.email}</Text>
-                            <Text style={styles.textStyle}>{this.props.item.first_name + this.props.item.last_name}</Text>
+                            <Text style={styles.textStyle}>{this.props.item.name}</Text>
                         </View>
 
                     </View>

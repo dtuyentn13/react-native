@@ -10,6 +10,7 @@ import {
 import Button from 'react-native-button';
 import Modal from 'react-native-modalbox';
 import flatlistData from '../Data/flatListData'
+import { insertNewFoodToServer } from '../networking/Server';
 
 var screen = Dimensions.get('window');
 export default class AddModal extends Component {
@@ -24,7 +25,7 @@ export default class AddModal extends Component {
         this.refs.myModal.open();
     }
     generateKey = (numberOfCharacters) => {
-        return require('random-string')({length: numberOfCharacters});
+        return require('random-string')({ length: numberOfCharacters });
     }
     render() {
         return (
@@ -94,15 +95,21 @@ export default class AddModal extends Component {
                             alert("You must enter food's name and description");
                             return;
                         }
-                        const newKey = this.generateKey(24);
                         const newFood = {
-                            key: newKey,
+                            avatar: "https://i.pravatar.cc/300",
                             name: this.state.newFoodName,
-                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/42/Cream_tea_Brighton.jpg",
-                            foodDescription: this.state.newFoodDescription
+                            phone: "123446",
+                            email: "youremail@gmail.com",
+                            //imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/42/Cream_tea_Brighton.jpg",
+                            des: this.state.newFoodDescription
                         };
-                        flatlistData.push(newFood);                       
-                        this.props.parentFlatList.refreshFlatList(newKey);
+                        // flatlistData.push(newFood);                       
+                        // this.props.parentFlatList.refreshFlatList(newKey);
+                        insertNewFoodToServer(newFood).then((result) => {
+                            if (result === 'ok') {
+                                this.props.parentFlatList.refreshDataFromServer();
+                            }
+                        });
                         this.refs.myModal.close();
                     }}
                 >
