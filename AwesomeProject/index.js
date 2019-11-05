@@ -20,6 +20,7 @@ import ViewPager from './components/ViewPager'
 import BasicFlatList from './components/BasicFlatList'
 import HorizontalFlatList from './components/HorizontalFlatList'
 import BasicSectionList from './components/BasicSectionList'
+import LifeCycleComponent from './components/LifeCycleComponent'
 
 
 // AppRegistry.registerComponent(appName, () => MultipleGreeting);
@@ -35,7 +36,8 @@ import BasicSectionList from './components/BasicSectionList'
 // AppRegistry.registerComponent(appName, () => ViewPager);
 // AppRegistry.registerComponent(appName, () => BasicFlatList);
 // AppRegistry.registerComponent(appName, () => HorizontalFlatList);
-AppRegistry.registerComponent(appName, () => BasicSectionList);
+// AppRegistry.registerComponent(appName, () => BasicSectionList);
+AppRegistry.registerComponent(appName, () => LifeCycleComponent);
 
 
 
