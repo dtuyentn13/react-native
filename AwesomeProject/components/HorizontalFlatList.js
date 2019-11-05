@@ -14,8 +14,8 @@ import { horizontalFlatListData } from '../Data/horizontalFlatListdata';
 // import Icon from 'react-native-ionicons';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-class HorizontalFlatListItem extends Component {
-    render() {
+function HorizontalFlatListItem ({ item, index, parentFlatList }) {
+console.log(item)
         return (
             <View style={{
                 flex: 1,
@@ -29,7 +29,7 @@ class HorizontalFlatListItem extends Component {
             }}
             >
                 <TouchableOpacity onPress={() => {
-                    alert(`You pressed: ${this.props.item.hour}`)
+                    alert(`You pressed: ${item.hour}`)
                 }}
                     style={{
                         position: 'absolute',
@@ -47,10 +47,10 @@ class HorizontalFlatListItem extends Component {
                     margin: 20,
                 }}
                 >
-                    {this.props.item.hour}
+                    {item.hour}
                     {/* JSON.stringify(this.props.item.status) */}
                 </Text>
-                <Icon name={(Platform.OS === 'ios') ? this.props.item.status.ios : this.props.item.status.android}
+                <Icon name={(Platform.OS === 'ios') ? item.status.ios : item.status.android}
                     size={30}
                     color='white' />
                 <Text style={{
@@ -59,12 +59,11 @@ class HorizontalFlatListItem extends Component {
                     margin: 10,
                 }}
                 >
-                    {this.props.item.degrees} ℉
+                    {item.degrees} ℉
             </Text>
             </View>
         )
     }
-}
 
 export default class HorizontalFlatList extends Component {
     render() {

@@ -3,7 +3,7 @@ import {
     Appregistry,
     FlatList,
     StyleSheet,
-    Text,
+    Text, RefreshControl,
     View, Image,
     Alert,
     Platform,
@@ -13,6 +13,8 @@ import flatListData from '../Data/flatListData';
 import SwipeOut from 'react-native-swipeout';
 import AddModal from './AddModal';
 import EditModal from './EditModal';
+
+import { getFoodsFromServer } from '../networking/Server';
 
 class FlatListItem extends Component {
     constructor(props) {
@@ -87,20 +89,19 @@ class FlatListItem extends Component {
                         backgroundColor: 'seagreen'
                     }}>
                         <Image
-                            source={{ uri: this.props.item.imageUrl }}
-                            style={{ width: 100, height: 100, margin: 5 }}
+                            source={{ uri: this.props.item.avatar }}
+                            style={{ width: 100, height: 100, }}
                         >
                         </Image>
                         <View style={{
-                            flexDirection: 'column',
                             flex: 1,
-                            height: 100
-                        }}
-                        >
-                            <Text style={styles.textStyle}>{this.props.item.name}</Text>
-                            <Text style={styles.textStyle}>{this.props.item.foodDescription}</Text>
-                        </View>
+                            flexDirection: 'column',
 
+                        }}>
+                            <Text style={styles.textStyle}>{this.props.item.id}</Text>
+                            <Text style={styles.textStyle}>{this.props.item.email}</Text>
+                            <Text style={styles.textStyle}>{this.props.item.first_name + this.props.item.last_name}</Text>
+                        </View>
 
                     </View>
                     <View style={{
@@ -117,8 +118,10 @@ class FlatListItem extends Component {
 const styles = StyleSheet.create({
     textStyle: {
         color: 'white',
-        padding: 10,
-        fontSize: 16
+        padding: 5,
+        fontSize: 16,
+        marginLeft: 5,
+
     }
 });
 
@@ -126,9 +129,29 @@ export default class BasicFlatList extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            deletedRowKey: false,
+            deletedRowKey: null,
+            refreshing: false,
+            foodsFromServer: []
         });
         this._onPressAdd = this._onPressAdd.bind(this);
+    }
+    componentDidMount() {
+        this.refreshDataFromServer();
+    }
+
+    refreshDataFromServer = () => {
+        this.setState({ refreshing: true });
+        getFoodsFromServer().then((foods) => {
+            console.log(foods);
+            this.setState({ foodsFromServer: foods });
+            this.setState({ refreshing: false });
+        }).catch((error) => {
+            this.setState({ foodsFromServer: [] });
+            this.setState({ refreshing: false });
+        });
+    }
+    onRefresh = () => {
+        this.refreshDataFromServer();
     }
     refreshFlatList = (activeKey) => {
         this.setState((prevState) => {
@@ -170,16 +193,21 @@ export default class BasicFlatList extends Component {
                     </TouchableHighlight>
                 </View>
                 <FlatList
-                    horizontal={true}
                     ref={"flatList"}
-                    data={flatListData}
+                    // data={flatListData}
+                    data={this.state.foodsFromServer}
                     renderItem={({ item, index }) => {
-                        // console.log(`Item = ${JSON.stringify(item)}, index = ${index}`)
+                        //console.log(`Item = ${JSON.stringify(item)}, index = ${index}`)
                         return (
                             <FlatListItem item={item} index={index} parentFlatList={this}>
                             </FlatListItem>
-                        )
+                        );
                     }}
+                    keyExtractor={(item, index) => item.name}
+                    refreshControl={<RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.onRefresh}
+                    />}
                 >
                 </FlatList>
                 <AddModal ref={'addModal'} parentFlatList={this}>

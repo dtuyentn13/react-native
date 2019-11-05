@@ -34,10 +34,10 @@ import LifeCycleComponent from './components/LifeCycleComponent'
 // AppRegistry.registerComponent(appName, () => VerticalScrollView);
 // AppRegistry.registerComponent(appName, () => HorizontalScrollView);
 // AppRegistry.registerComponent(appName, () => ViewPager);
-// AppRegistry.registerComponent(appName, () => BasicFlatList);
+AppRegistry.registerComponent(appName, () => BasicFlatList);
 // AppRegistry.registerComponent(appName, () => HorizontalFlatList);
 // AppRegistry.registerComponent(appName, () => BasicSectionList);
-AppRegistry.registerComponent(appName, () => LifeCycleComponent);
+// AppRegistry.registerComponent(appName, () => LifeCycleComponent);
 
 
 
