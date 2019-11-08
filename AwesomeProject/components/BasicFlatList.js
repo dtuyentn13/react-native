@@ -14,7 +14,7 @@ import SwipeOut from 'react-native-swipeout';
 import AddModal from './AddModal';
 import EditModal from './EditModal';
 
-import { insertNewFoodToServer} from '../networking/Server'
+import { insertNewFoodToServer } from '../networking/Server'
 import { getFoodsFromServer } from '../networking/Server';
 
 class FlatListItem extends Component {
@@ -22,15 +22,12 @@ class FlatListItem extends Component {
         super(props);
         this.state = {
             activeRowkey: null,
-            numberOfRefresh: 0
+            numberOfRefresh: 0,
+            item: {}
         };
     }
-    refreshFlatListItem = () => {
-        this.setState((prevState) => {
-            return {
-                numberOfRefresh: prevState.numberOfRefresh + 1
-            };
-        });
+    refreshFlatListItem = (changedItem) => {
+        this.setState({item: changedItem});
     }
 
     render() {
@@ -48,13 +45,23 @@ class FlatListItem extends Component {
                 {
                     onPress: () => {
                         // alert('Update');
-                        this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index], this)
+                        // this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index], this)
+                        this.state.item;
+                        console.log("TCL: FlatListItem -> render -> this.state.item", this.state.item)
+                        this.props.item;
+                        console.log("TCL: FlatListItem -> render -> this.props.item", this.props.item)
+
+                        let selectedItem = this.state.item.name ? this.state.item : this.props.item;
+                        
+                        this.props.parentFlatList.refs.editModal.showEditModal(selectedItem, this)
                     },
                     text: 'Edit', type: 'primary'
                 },
                 {
                     onPress: () => {
                         const deletingRow = this.state.activeRowkey;
+                        console.log("TCL: FlatListItem -> render -> deletingRow", deletingRow)
+                        
                         Alert.alert(
                             'Alert',
                             'Are you sure want to delete',
@@ -62,9 +69,14 @@ class FlatListItem extends Component {
                                 { text: 'No', onPress: () => console.log('Cancel Prossed'), style: 'cancel' },
                                 {
                                     text: 'Yes', onPress: () => {
-                                        flatListData.splice(this.props.index, 1);
+                                        debugger;
+                                       
+                                        /* goi api xoa */
+
+
+
                                         //Refresh Flatlist
-                                        this.props.parentFlatList.refreshFlatList(deletingRow);
+                                        this.props.parentFlatList.refreshFlatList();
 
                                     }
                                 },
@@ -99,9 +111,11 @@ class FlatListItem extends Component {
                             flexDirection: 'column',
 
                         }}>
-                            <Text style={styles.textStyle}>{this.props.item.id}</Text>
-                            <Text style={styles.textStyle}>{this.props.item.email}</Text>
-                            <Text style={styles.textStyle}>{this.props.item.name}</Text>
+                            
+                            <Text style={styles.textStyle}>{this.state.item.name  ? this.state.item.name : this.props.item.name}</Text>
+                            <Text style={styles.textStyle}>{this.state.item.address ? this.state.item.address : this.props.item.address}</Text>
+                            <Text style={styles.textStyle}>{this.state.item.email ? this.state.item.email : this.props.item.email}</Text>
+                            
                         </View>
 
                     </View>
@@ -144,6 +158,7 @@ export default class BasicFlatList extends Component {
         this.setState({ refreshing: true });
         getFoodsFromServer().then((foods) => {
             console.log(foods);
+
             this.setState({ foodsFromServer: foods });
             this.setState({ refreshing: false });
         }).catch((error) => {
@@ -154,7 +169,7 @@ export default class BasicFlatList extends Component {
     onRefresh = () => {
         this.refreshDataFromServer();
     }
-    refreshFlatList = (activeKey) => {
+    refreshFlatList = () => {
         this.setState((prevState) => {
             return {
                 deletedRowKey: true
@@ -204,7 +219,7 @@ export default class BasicFlatList extends Component {
                             </FlatListItem>
                         );
                     }}
-                    keyExtractor={(item, index) => item.name}
+                    keyExtractor={(item, index) => item.id + ''}
                     refreshControl={<RefreshControl
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh}
