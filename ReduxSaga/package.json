@@ -1,5 +1,5 @@
 {
-  "name": "TUTORIALPROJECT",
+  "name": "ReduxSaga",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,8 +13,9 @@
     "react": "16.9.0",
     "react-native": "0.61.4",
     "react-native-button": "^2.4.0",
-    "react-redux": "7.1.3",
-    "redux": "4.0.4"
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.1.3"
   },
   "devDependencies": {
     "@babel/core": "7.7.2",
