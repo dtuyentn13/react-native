@@ -1,16 +1,30 @@
-import { INCREMENT, DECREMENT } from './actionTypes';
+import { ADD_MOVIE, FETCH_MOVIES, FETCH_SUCCEEDED, FETCH_FAILED } from './actionTypes';
 
-//Action: "increase counter "
-export const increaseAction = (step) => {
+export const fetchMoviesAction = (sort) => {
     return {
-        type: INCREMENT,
-        step: step
+        type: FETCH_MOVIES,
+        sort
     }
 }
-//Action: "decrease counter "
-export const decreaseAction = (step) => {
+
+export const addMovieAction = (newMovie) => {
     return {
-        type: DECREMENT,
-        step: step
+        type: ADD_MOVIE,
+        //newMovie: newMovie
+        newMovie
+    }
+}
+//Action sent by Redux-saga
+export const fetchSuccessAction = (receivedMovies) => {
+    return {
+        type: FETCH_SUCCEEDED,
+        receivedMovies
+    }
+}
+
+export const fetchFailedAction = (error) => {
+    return {
+        type: FETCH_FAILED,
+        error
     }
 }

@@ -1,14 +1,7 @@
 //Saga effects
-import { delay } from 'redux-saga';
-import { all } from 'redux-saga/effects';
-
-import { sayHello } from './counterSagas';
-import { watchIncrement, watchDecrement } from './counterSagas';
+import { call, all } from 'redux-saga/effects';
+import { watchFetchMovies } from './movieSagas';
 
 export default function* rootSaga() {
-    yield all([
-        sayHello,
-        watchIncrement(), 
-        watchDecrement(), 
-    ]);
+    yield call(watchFetchMovies);              
 }
